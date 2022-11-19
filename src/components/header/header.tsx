@@ -1,17 +1,19 @@
-import { component$, useStylesScoped$ } from '@builder.io/qwik';
-import { QwikLogo } from '../icons/qwik';
+import {component$, useStylesScoped$} from '@builder.io/qwik';
 import styles from './header.scss?inline';
+import {Link} from "@builder.io/qwik-city";
 
 export default component$(() => {
-  useStylesScoped$(styles);
 
-  return (
-    <header>
-      <div class="container">
-        <a href="https://qwik.builder.io/" target="_blank">
-          <h1>Logo</h1>
-        </a>
-      </div>
-    </header>
-  );
+
+    useStylesScoped$(styles);
+
+    return (
+        <header>
+            <div class="container">
+                <Link href="/">
+                    logo
+                </Link>
+            </div>
+        </header>
+    );
 });
