@@ -11,9 +11,7 @@ export default component$(() => {
         </section>
       </main>
       <footer>
-        <a href="https://www.builder.io/" target="_blank">
-          Made with ♡ by Builder.io
-        </a>
+          <h1>footer</h1>
       </footer>
     </>
   );
