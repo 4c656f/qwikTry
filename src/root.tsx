@@ -4,16 +4,22 @@ import {RouterHead} from './components/router-head/router-head';
 
 import globalStyles from './global.css?inline';
 
+type globalStore = {
+    count: number
+}
 
-
+export const globalContext = createContext<globalStore>('globalContext')
 
 export default component$(() => {
+
+    const globalStore = useStore<globalStore>({
+        count: 0
+    })
 
     useStyles$(globalStyles);
 
 
-
-
+    useContextProvider(globalContext, globalStore)
     return (
         <QwikCity>
             <head>

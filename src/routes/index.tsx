@@ -1,13 +1,13 @@
-import {component$, Resource} from '@builder.io/qwik';
+import {component$, Resource, useContext, useSignal} from '@builder.io/qwik';
 import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
 import {Link, useEndpoint} from '@builder.io/qwik-city';
 import {PrismaClient, Product} from '@prisma/client'
-import {client} from "../../server/db/client";
+import {globalContext} from "../root";
+
 
 export const onGet: RequestHandler<Product[]> = async ({...rest}) => {
-    //when i use local Client it works fine, but it will cause prisma client duplication
-    const localClient = new PrismaClient
 
+    const {client} = await import('../../server/db/client')
     //for this reason I am importing a global client
     const products = await client.product.findMany({take: 10})
 
@@ -17,6 +17,9 @@ export const onGet: RequestHandler<Product[]> = async ({...rest}) => {
 export default component$(() => {
     //get prisma data on server
     const products = useEndpoint<typeof onGet>()
+    const signal = useSignal()
+
+    const globalStore = useContext(globalContext)
 
     return (
         <div>
@@ -25,15 +28,16 @@ export default component$(() => {
             >
                 gotToProductPage
             </Link>
+            <h1>state: {globalStore.count}</h1>
+            <button
+                onClick$={(e)=>globalStore.count++}
+            >incrimentState</button>
             <Resource
                 value={products}
+                onRejected={(eror)=><div>Error</div>}
                 onPending={()=><div>loading</div>}
                 onResolved={(prop) => (
-                    //prop: undefined|products
                     <>{
-                        //for some reason I don't understand,
-                        //the link calls an additional request onGet
-                        //and at the same time prop is equal to undefiend
                         prop?.map(value => {
                             return (
                                 <h1>{value.name}</h1>
