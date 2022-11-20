@@ -1,124 +1,164 @@
-/**
- * WHAT IS THIS FILE?
- *
- * Globally applied styles. No matter which components are in the page or matching route,
- * the styles in here will be applied to the Document, without any sort of CSS scoping.
- *
- */
-
-:root {
-    --qwik-dark-blue: #006ce9;
-    --qwik-light-blue: #18b6f6;
-    --qwik-light-purple: #ac7ff4;
-    --qwik-dark-purple: #713fc2;
+@import "variables";
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body {
-    background-color: #fafafa;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    padding: 20px 20px 40px 20px;
+//body {
+//
+//
+//    --index_0_color: #000000;
+//
+//    --index_1_color: #131313;
+//
+//    --index_1_5_color: #1A1A1A;
+//
+//    --index_2_color: #1B1B1B;
+//
+//    --index_2_5_color: #1e1e1e;
+//
+//    --index_3_color: #383838;
+//
+//    --index_3_5_color: #383838;
+//
+//    --index_0_text: #D2D2D2;
+//
+//    --index_1_text: #9E9E9E;
+//
+//    --index_2_text: #5C5D66;
+//
+//    --index_primary_text: #0B6EF9;
+//
+//
+//    background-color: var(--index_0_color);
+//
+//    width: 100%;
+//}
+
+
+body[data-theme='light'] {
+    --index_0_color: #F3F4F5;
+
+    --index_1_color: #FFFFFF;
+
+    --index_1_5_color: #F9F9F9;
+
+    --index_2_color: #F7F7F7;
+
+    --index_2_5_color: #f3f3f3;
+
+    --index_3_color: #EDEFF2;
+
+    --index_3_5_color: #EDEFF2;
+
+    --index_0_text: #191C1F;
+
+    --index_1_text: #5E6265;
+
+    --index_2_text: #5C5D66;
+
+    --index_primary_text: #0B6EF9;
 }
 
-main {
-    max-width: 760px;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 0px 130px -50px var(--qwik-light-purple);
-    overflow: hidden;
+body[data-theme='dark'] {
+
+    --index_0_color: #000000;
+
+    --index_1_color: #131313;
+
+    --index_1_5_color: #1A1A1A;
+
+    --index_2_color: #1B1B1B;
+
+    --index_2_5_color: #1e1e1e;
+
+    --index_3_color: #383838;
+
+    --index_3_5_color: #383838;
+
+    --index_0_text: #D2D2D2;
+
+    --index_1_text: #9E9E9E;
+
+    --index_2_text: #5C5D66;
+
+    --index_primary_text: #0B6EF9;
+}
+body{
+    background-color: var(--index_0_color);
+    --index_0_color: #000000;
+
+    --index_1_color: #131313;
+
+    --index_1_5_color: #1A1A1A;
+
+    --index_2_color: #1B1B1B;
+
+    --index_2_5_color: #1e1e1e;
+
+    --index_3_color: #383838;
+
+    --index_3_5_color: #383838;
+
+    --index_0_text: #D2D2D2;
+
+    --index_1_text: #9E9E9E;
+
+    --index_2_text: #5C5D66;
+
+    --index_primary_text: #0B6EF9;
 }
 
-h1,
+@keyframes backgroundPulse {
+    0% {
+        background-color: red;
+    }
+    50% {
+        background-color: green;
+    }
+    100% {
+        background-color: red;
+    }
+
+}
+
+h1 {
+    all: unset;
+
+    color: var(--index_0_text);
+    @include default_h1()
+}
+
 h2 {
-    margin: 0 0 5px 0;
+    all: unset;
+    color: var(--index_0_text);
+    @include default_h2()
 }
 
-.lightning {
-    filter: hue-rotate(180deg);
+h3 {
+    all: unset;
+    color: var(--index_0_text);
+    @include default_h3()
 }
 
-section {
-    padding: 20px;
-    border-bottom: 10px solid var(--qwik-dark-blue);
+h4 {
+    all: unset;
+    color: var(--index_0_text);
+    @include default_h4()
 }
 
-ul {
-    list-style-type: square;
-    margin: 5px 0 30px 0;
-    padding-left: 25px;
+span {
+    all: unset;
+
+    color: var(--index_0_text);
+    @include default_h4();
+
 }
 
-li {
-    padding: 8px 0;
-}
-
-li::marker {
-    color: var(--qwik-light-blue);
-}
-
-a,
-a:visited {
-    color: var(--qwik-dark-blue);
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-table.commands {
-    margin: 0 0 30px 0;
-}
-
-.commands td {
-    padding: 5px;
-}
-
-.commands td:first-child {
-    white-space: nowrap;
-    padding-right: 20px;
-}
-
-code {
-    font-family: Menlo, Monaco, Courier New, monospace;
-    font-size: 0.9em;
-    background-color: rgb(224, 224, 224);
-    padding: 2px 4px;
-    border-radius: 3px;
-    border-bottom: 2px solid #bfbfbf;
-}
-
-footer {
-    padding: 15px;
-    text-align: center;
-    font-size: 0.8em;
-}
-
-footer a {
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-a.mindblow {
-    margin: 0 auto;
-    display: block;
-    background: var(--qwik-light-purple);
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 0;
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    width: fit-content;
-    border-bottom: 4px solid black;
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🤯</text></svg>") 16 0,
-    auto; /*!emojicursor.app*/
-}
-
-a.mindblow:hover {
-    border-bottom-width: 0px;
-    margin-bottom: 4px;
-    transform: translateY(4px);
+a {
+    color: var(--index_0_text);
+    @include default_h4();
 }

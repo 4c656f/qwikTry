@@ -4,9 +4,10 @@ import {Link, useEndpoint} from '@builder.io/qwik-city';
 import {Product} from '@prisma/client'
 import {globalContext} from "../root";
 import {isServer} from "@builder.io/qwik/build";
-import axios from "axios";
 
 import { trpc } from "~/client/trpc";
+import Button from "../components/Button/Button";
+import ArrowIcon from "../components/icons/Arrow";
 
 
 export const onGet: RequestHandler<Product[]> = async ({params}) => {
@@ -25,7 +26,6 @@ export default component$(() => {
         if(isServer){
             return products.promise
         }
-        console.log('clientResource')
         return await trpc.product.getProducts.query({})
     })
 
@@ -40,10 +40,17 @@ export default component$(() => {
                 gotToProductPage
             </Link>
             <h1>state: {globalStore.count}</h1>
-            <button
-                onClick$={(e) => globalStore.count++}
-            >incrimentState
-            </button>
+            <Button
+                onClick$={() => {
+                    globalStore.isDark = !globalStore.isDark
+                }}
+                type={'link'}
+            >
+                toggleTheme
+                <ArrowIcon
+                    q:slot={'icon'}
+                />
+            </Button>
             <Resource
                 value={resource}
                 onRejected={(eror) => <div>Error</div>}
