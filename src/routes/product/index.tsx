@@ -8,9 +8,7 @@ export default component$(() => {
     const globalStore = useContext(globalContext)
 
 
-    const productResource = useResource$<any>(() => {
-        console.log('resource')
-    })
+
 
 
     return (

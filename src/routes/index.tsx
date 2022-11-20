@@ -3,11 +3,10 @@ import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
 import {Link, useEndpoint} from '@builder.io/qwik-city';
 import {Product} from '@prisma/client'
 import {globalContext} from "../root";
+import {isServer} from "@builder.io/qwik/build";
 
 
 export const onGet: RequestHandler<Product[]> = async ({params}) => {
-
-    params
     const {client} = await import('../../utils/db/client')
 
     const products = await client.product.findMany()
@@ -22,8 +21,12 @@ export default component$(() => {
 
 
 
-
-    const signal = useSignal()
+    const resource = useResource$<Product[]|undefined>(async ()=>{
+        if(isServer){
+            return products.promise
+        }
+        console.log('clientResources')
+    })
 
     const globalStore = useContext(globalContext)
 
@@ -41,7 +44,7 @@ export default component$(() => {
             >incrimentState
             </button>
             <Resource
-                value={products}
+                value={resource}
                 onRejected={(eror) => <div>Error</div>}
                 onPending={() => <div>loading</div>}
                 onResolved={(prop) => (
