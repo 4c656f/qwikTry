@@ -7,7 +7,7 @@ import {globalContext} from "../root";
 
 export const onGet: RequestHandler<Product[]> = async ({...rest}) => {
 
-    const {client} = await import('../../server/db/client')
+    const {client} = await import('../../utils/db/client')
     //for this reason I am importing a global client
     const products = await client.product.findMany()
 
@@ -21,9 +21,7 @@ export default component$(() => {
 
     const globalStore = useContext(globalContext)
 
-    useServerMount$(()=>{
-        console.log('serverMount')
-    })
+
 
 
 
