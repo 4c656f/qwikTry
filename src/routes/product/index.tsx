@@ -1,4 +1,4 @@
-import {component$, useContext} from "@builder.io/qwik";
+import {component$, useContext, useResource$} from "@builder.io/qwik";
 import {globalContext} from "../../root";
 
 
@@ -6,6 +6,12 @@ export default component$(() => {
 
 
     const globalStore = useContext(globalContext)
+
+
+    const productResource = useResource$<any>(() => {
+        console.log('resource')
+    })
+
 
     return (
         <div>

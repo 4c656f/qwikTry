@@ -2,7 +2,7 @@ import {component$, createContext, useContextProvider, useStore, useStyles$} fro
 import {QwikCity, RouterOutlet, ServiceWorkerRegister} from '@builder.io/qwik-city';
 import {RouterHead} from './components/router-head/router-head';
 
-import globalStyles from './global.css?inline';
+import globalStyles from './global.scss?inline';
 
 type globalStore = {
     count: number

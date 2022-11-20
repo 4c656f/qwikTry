@@ -1,28 +1,31 @@
-import {component$, Resource, useClientEffect$, useContext, useServerMount$, useSignal} from '@builder.io/qwik';
+import {component$, Resource, useContext, useResource$, useSignal} from '@builder.io/qwik';
 import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
 import {Link, useEndpoint} from '@builder.io/qwik-city';
-import {PrismaClient, Product} from '@prisma/client'
+import {Product} from '@prisma/client'
 import {globalContext} from "../root";
 
 
-export const onGet: RequestHandler<Product[]> = async ({...rest}) => {
+export const onGet: RequestHandler<Product[]> = async ({params}) => {
 
+    params
     const {client} = await import('../../utils/db/client')
-    //for this reason I am importing a global client
+
     const products = await client.product.findMany()
 
     return products
 };
 
 export default component$(() => {
-    //get prisma data on server
+
+
     const products = useEndpoint<typeof onGet>()
+
+
+
+
     const signal = useSignal()
 
     const globalStore = useContext(globalContext)
-
-
-
 
 
     return (
@@ -34,12 +37,13 @@ export default component$(() => {
             </Link>
             <h1>state: {globalStore.count}</h1>
             <button
-                onClick$={(e)=>globalStore.count++}
-            >incrimentState</button>
+                onClick$={(e) => globalStore.count++}
+            >incrimentState
+            </button>
             <Resource
                 value={products}
-                onRejected={(eror)=><div>Error</div>}
-                onPending={()=><div>loading</div>}
+                onRejected={(eror) => <div>Error</div>}
+                onPending={() => <div>loading</div>}
                 onResolved={(prop) => (
                     <>{
                         prop?.map(value => {
