@@ -5,14 +5,14 @@ import {Product} from '@prisma/client'
 import {globalContext} from "../root";
 import {isServer} from "@builder.io/qwik/build";
 import axios from "axios";
-import {client} from "../server/db/client";
-import {TrpcClient} from "../client/trpc";
+
+import { trpc } from "~/client/trpc";
 
 
 export const onGet: RequestHandler<Product[]> = async ({params}) => {
-    const {client} = await import('../server/db/client')
+    const {prisma} = await import('../server/db/client')
 
-    const products = await client.product.findMany()
+    const products = await prisma.product.findMany()
 
     return products
 };
@@ -29,7 +29,7 @@ export default component$(() => {
     })
 
     useClientEffect$(async ()=>{
-        const data = await TrpcClient.product.get.query('some')
+        const data = await trpc.posts.getPosts.query({})
         console.log(data)
     })
     const globalStore = useContext(globalContext)

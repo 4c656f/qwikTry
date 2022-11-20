@@ -1,19 +1,17 @@
 import { RequestHandler } from "@builder.io/qwik-city";
 
-
 const handler: RequestHandler = async (ev) => {
-    const { resolveHTTPResponse } = await import("@trpc/server/http");
-    const { appRouter } = await import("~/server/trpc/router/index");
-    const { createContext } = await import("~/server/trpc/context");
+    const { resolveHTTPResponse } = await import("@trpc/server");
+    const { appRouter } = await import("../../../../server/trpc/router/index");
+    const { createContext } = await import("../../../../server/trpc/context");
 
     const headers: Record<string, string> = {};
     ev.request.headers.forEach((value, key) => {
         headers[key] = value;
     });
-
     try {
         const res = await resolveHTTPResponse({
-            createContext: () => createContext(ev),
+            router: appRouter,
             path: ev.params.trpc,
             req: {
                 body: await ev.request.text(),
@@ -21,17 +19,16 @@ const handler: RequestHandler = async (ev) => {
                 method: ev.request.method,
                 query: new URL(ev.request.url).searchParams,
             },
-            router: appRouter,
+            createContext,
         });
-
+        console.log(res);
         for (const key in res.headers) {
             const value = res.headers[key] as string;
             ev.response.headers.set(key, value);
         }
-
         ev.response.status = res.status;
         return JSON.parse(res.body as string);
-    } catch (error) {
+    } catch (error: any) {
         ev.response.status = 500;
         return "Internal Server Error";
     }

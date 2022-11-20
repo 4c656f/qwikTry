@@ -1,14 +1,10 @@
-import { RequestEvent } from "@builder.io/qwik-city";
-import { createContext } from "../context";
+// src/server/trpc/router/index.ts
 import { t } from "../trpc";
-import {productRouter} from "./product";
+import { postsRouter } from "./posts";
 
-export const router = t.router
-export const appRouter = router({
-    product: productRouter
+export const appRouter = t.router({
+    posts: postsRouter,
 });
 
-
-
-export const publicProcedure = t.procedure;
+// export type definition of API
 export type AppRouter = typeof appRouter;
