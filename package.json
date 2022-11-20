@@ -16,13 +16,13 @@
     "fmt.check": "prettier --check .",
     "lint": "eslint src/**/*.ts*",
     "preview": "qwik build preview && vite preview --open",
-    "serve": "echo 'Run \\\\\\\"npm run qwik add\\\\\\\" to install a server adaptor'" ,
+    "serve": "echo 'Run \\\\\\\"npm run qwik add\\\\\\\" to install a server adaptor'",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
   "devDependencies": {
     "@builder.io/qwik": "0.13.3",
-    "@builder.io/qwik-city": "0.0.122",
+    "@builder.io/qwik-city": "^0.0.123",
     "@prisma/client": "^4.6.1",
     "@types/eslint": "8.4.9",
     "@types/node": "latest",
@@ -34,11 +34,15 @@
     "prettier": "2.7.1",
     "prisma": "^4.6.1",
     "sass": "^1.56.1",
+    "superjson": "^1.11.0",
     "typescript": "4.8.4",
     "vite": "3.2.2",
-    "vite-tsconfig-paths": "3.5.0"
+    "vite-tsconfig-paths": "3.5.0",
+    "zod": "^3.19.1"
   },
   "dependencies": {
+    "@trpc/client": "^10.0.0-rc.8",
+    "@trpc/server": "^10.0.0-rc.8",
     "axios": "^1.1.3"
   }
 }

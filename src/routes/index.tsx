@@ -1,14 +1,16 @@
-import {component$, Resource, useContext, useResource$, useSignal} from '@builder.io/qwik';
+import {component$, Resource, useClientEffect$, useContext, useResource$, useSignal} from '@builder.io/qwik';
 import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
 import {Link, useEndpoint} from '@builder.io/qwik-city';
 import {Product} from '@prisma/client'
 import {globalContext} from "../root";
 import {isServer} from "@builder.io/qwik/build";
 import axios from "axios";
+import {client} from "../server/db/client";
+import {TrpcClient} from "../client/trpc";
 
 
 export const onGet: RequestHandler<Product[]> = async ({params}) => {
-    const {client} = await import('../../utils/db/client')
+    const {client} = await import('../server/db/client')
 
     const products = await client.product.findMany()
 
@@ -23,10 +25,13 @@ export default component$(() => {
         if(isServer){
             return products.promise
         }
-        const data = await axios.get<Product[]>('/api/product')
-        return data.data
+
     })
 
+    useClientEffect$(async ()=>{
+        const data = await TrpcClient.product.get.query('some')
+        console.log(data)
+    })
     const globalStore = useContext(globalContext)
 
 
