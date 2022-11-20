@@ -1,4 +1,4 @@
-import {component$, Resource, useContext, useSignal} from '@builder.io/qwik';
+import {component$, Resource, useClientEffect$, useContext, useServerMount$, useSignal} from '@builder.io/qwik';
 import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
 import {Link, useEndpoint} from '@builder.io/qwik-city';
 import {PrismaClient, Product} from '@prisma/client'
@@ -9,7 +9,7 @@ export const onGet: RequestHandler<Product[]> = async ({...rest}) => {
 
     const {client} = await import('../../server/db/client')
     //for this reason I am importing a global client
-    const products = await client.product.findMany({take: 10})
+    const products = await client.product.findMany()
 
     return products
 };
@@ -20,6 +20,12 @@ export default component$(() => {
     const signal = useSignal()
 
     const globalStore = useContext(globalContext)
+
+    useServerMount$(()=>{
+        console.log('serverMount')
+    })
+
+
 
     return (
         <div>
