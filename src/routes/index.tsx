@@ -25,13 +25,10 @@ export default component$(() => {
         if(isServer){
             return products.promise
         }
-
+        console.log('clientResource')
+        return await trpc.product.getProducts.query({})
     })
 
-    useClientEffect$(async ()=>{
-        const data = await trpc.posts.getPosts.query({})
-        console.log(data)
-    })
     const globalStore = useContext(globalContext)
 
 

@@ -1,9 +1,9 @@
 // src/server/trpc/router/index.ts
 import { t } from "../trpc";
-import { postsRouter } from "./posts";
+import { productRouter } from "./product";
 
 export const appRouter = t.router({
-    posts: postsRouter,
+    product: productRouter,
 });
 
 // export type definition of API
