@@ -4,6 +4,7 @@ import {Link, useEndpoint} from '@builder.io/qwik-city';
 import {Product} from '@prisma/client'
 import {globalContext} from "../root";
 import {isServer} from "@builder.io/qwik/build";
+import axios from "axios";
 
 
 export const onGet: RequestHandler<Product[]> = async ({params}) => {
@@ -18,14 +19,12 @@ export default component$(() => {
 
 
     const products = useEndpoint<typeof onGet>()
-
-
-
     const resource = useResource$<Product[]|undefined>(async ()=>{
         if(isServer){
             return products.promise
         }
-        console.log('clientResources')
+        const data = await axios.get<Product[]>('/api/product')
+        return data.data
     })
 
     const globalStore = useContext(globalContext)
