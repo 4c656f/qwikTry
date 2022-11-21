@@ -21,7 +21,6 @@ const handler: RequestHandler = async (ev) => {
             },
             createContext,
         });
-        console.log(res);
         for (const key in res.headers) {
             const value = res.headers[key] as string;
             ev.response.headers.set(key, value);
