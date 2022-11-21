@@ -153,5 +153,5 @@
   align-items: center;
 }
 .icon > svg {
-  @include default_svg();
+  @include default_svg($size: 16px);
 }

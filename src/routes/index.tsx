@@ -8,25 +8,20 @@ import {isServer} from "@builder.io/qwik/build";
 import { trpc } from "~/client/trpc";
 import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
-import {prisma} from "../server/db/client";
 
-export const onGet: RequestHandler<Product[]> = async ({params}) => {
-    const {prisma} = await import('../server/db/client')
-
-    const products = await prisma.product.findMany()
-
-    return products
-};
 
 export default component$(() => {
 
-    const products = useEndpoint<typeof onGet>()
+
 
 
     const resource = useResource$<Product[]|undefined>(async ()=>{
         if(isServer){
-            return await products.promise
+            const {prisma} = await import('../server/db/client')
+            console.log('serverResource')
+            return await prisma.product.findMany()
         }
+        console.log('userResource')
         return await trpc.product.getProducts.query({})
     })
 
