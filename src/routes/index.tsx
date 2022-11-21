@@ -10,14 +10,22 @@ import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
 import {prisma} from "../server/db/client";
 
+export const onGet: RequestHandler<Product[]> = async ({params}) => {
+    const {prisma} = await import('../server/db/client')
+
+    const products = await prisma.product.findMany()
+
+    return products
+};
 
 export default component$(() => {
 
+    const products = useEndpoint<typeof onGet>()
+
 
     const resource = useResource$<Product[]|undefined>(async ()=>{
-        console.log('resource')
         if(isServer){
-            return await prisma.product.findMany()
+            return await products.promise
         }
         return await trpc.product.getProducts.query({})
     })
@@ -47,7 +55,7 @@ export default component$(() => {
             <Resource
                 value={resource}
                 onRejected={(eror) => <h1>{eror}</h1>}
-                onPending={() => <div>loading</div>}
+                onPending={() => <h1>loading</h1>}
                 onResolved={(prop) => (
                     <>{
                         prop?.map(value => {
