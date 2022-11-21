@@ -15,6 +15,7 @@ export default component$(() => {
 
 
     const resource = useResource$<Product[]|undefined>(async ()=>{
+        console.log('resource')
         if(isServer){
             return await prisma.product.findMany()
         }
@@ -45,7 +46,7 @@ export default component$(() => {
             </Button>
             <Resource
                 value={resource}
-                onRejected={(eror) => <div>Error</div>}
+                onRejected={(eror) => <h1>{eror}</h1>}
                 onPending={() => <div>loading</div>}
                 onResolved={(prop) => (
                     <>{
