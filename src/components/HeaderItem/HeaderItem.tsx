@@ -1,4 +1,3 @@
-import React, {FC, ReactElement} from 'react';
 import Button from "../Button/Button";
 import styles from './HeaderItem.scss?inline'
 import {component$, Slot, useStylesScoped$} from "@builder.io/qwik";

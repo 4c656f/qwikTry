@@ -2,9 +2,9 @@ import {component$, Slot, useStylesScoped$} from "@builder.io/qwik";
 import styles from "./headerSectionElement.scss?inline";
 
 
-export default component$((props) => {
+export default component$(() => {
 
-    const {} = props
+
 
     useStylesScoped$(styles)
 

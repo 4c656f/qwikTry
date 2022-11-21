@@ -1,11 +1,11 @@
-import {component$, Resource, useClientEffect$, useContext, useResource$, useSignal} from '@builder.io/qwik';
-import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
-import {Link, useEndpoint} from '@builder.io/qwik-city';
-import {Product} from '@prisma/client'
+import {component$, Resource, useContext, useResource$} from '@builder.io/qwik';
+import type {DocumentHead} from '@builder.io/qwik-city';
+import {Link} from '@builder.io/qwik-city';
+import type {Product} from '@prisma/client'
 import {globalContext} from "../root";
 import {isServer} from "@builder.io/qwik/build";
 
-import { trpc } from "~/client/trpc";
+import {trpc} from "~/client/trpc";
 import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
 
@@ -13,10 +13,8 @@ import ArrowIcon from "../components/icons/Arrow";
 export default component$(() => {
 
 
-
-
-    const resource = useResource$<Product[]|undefined>(async ()=>{
-        if(isServer){
+    const resource = useResource$<Product[] | undefined>(async () => {
+        if (isServer) {
             const {prisma} = await import('../server/db/client')
             console.log('serverResource')
             return await prisma.product.findMany()

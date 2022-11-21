@@ -166,7 +166,6 @@ $default_transition: 0.3s;
 }
 
 
-
 @mixin styling_scrollbar($color_index:1) {
   /* width */
   &::-webkit-scrollbar {
@@ -191,7 +190,6 @@ $default_transition: 0.3s;
 
 
     border-radius: 9999px;
-
 
 
   }

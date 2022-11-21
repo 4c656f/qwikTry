@@ -1,10 +1,9 @@
-import {component$, HTMLAttributes, PropFunction, QwikJSX, Slot, useStyles$, useStylesScoped$} from '@builder.io/qwik';
+import {component$, HTMLAttributes, PropFunction, Slot, useStyles$} from '@builder.io/qwik';
 
 import styles from './button.scss?inline';
 import {ButtonType} from "../../../types/IElementType";
 import {IElementsSize} from "../../../types/IElementsSize";
 import {IColorIndex} from "../../../types/IColorIndex";
-
 
 
 const type = 'button'
@@ -33,7 +32,7 @@ export default component$((props: ButtonProps) => {
     useStyles$(styles);
 
     const classes = [
-        className?className:'',
+        className ? className : '',
         'container',
         type,
         size,
@@ -42,7 +41,10 @@ export default component$((props: ButtonProps) => {
 
     return (
         <button
-            onClick$={onClick$}
+            onClick$={async () => {
+                if(onClick$)await onClick$();
+
+            }}
             class={classes.join(' ')}
             {...rest}
         >

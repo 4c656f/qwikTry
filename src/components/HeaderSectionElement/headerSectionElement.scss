@@ -1,6 +1,4 @@
 
-
-
 .section_element {
   width: max-content;
   min-width: 200px;
@@ -21,7 +19,7 @@
 }
 
 @media (max-width: 500px) {
-  .section_element{
+  .section_element {
     width: 100%;
   }
 }

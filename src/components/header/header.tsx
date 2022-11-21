@@ -4,8 +4,7 @@ import {RequestHandler} from "@builder.io/qwik-city";
 import {Product} from "@prisma/client";
 
 
-
-export const onGet: RequestHandler<Product[]> = async ({params}) => {
+export const onGet: RequestHandler<Product[]> = async () => {
 
     console.log('layoutrequest')
 

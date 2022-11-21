@@ -5,7 +5,6 @@ import HeaderItem from "../components/HeaderItem/HeaderItem";
 import HeaderSection from "../components/HeaderSection/HeaderSection";
 import {Link} from "@builder.io/qwik-city";
 import {isServer} from "@builder.io/qwik/build";
-import {prisma} from "../server/db/client";
 import HeaderSectionElement from "../components/HeaderSectionElement/HeaderSectionElement";
 import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
@@ -23,8 +22,9 @@ export default component$(() => {
 
     const categoriesResource = useResource$(async () => {
         if (isServer) {
+            const {prisma} = await import('../server/db/client')
             const categories = await prisma.category.findMany({
-                include:{
+                include: {
                     productTypes: true
                 }
             })
@@ -59,39 +59,39 @@ export default component$(() => {
                                     (
                                         <>
                                             {
-                                            value?.map(category => {
-                                                return (
-                                                    <HeaderSectionElement
-                                                        q:slot={'elements'}
-                                                    >
-                                                        <Button
-                                                            type={'link'}
-                                                            q:slot={'title'}
-                                                            colorIndex={'1'}
-                                                            style={{width: '100%'}}
-
-
+                                                value?.map(category => {
+                                                    return (
+                                                        <HeaderSectionElement
+                                                            q:slot={'elements'}
                                                         >
-                                                            <h1>{category.name}</h1>
-                                                            <ArrowIcon q:slot={'icon'}/>
-                                                        </Button>
-                                                        {category.productTypes.map(productType=>{
-                                                            return(
-                                                                <Button
-                                                                    type={'link'}
-                                                                    q:slot={'title'}
-                                                                    colorIndex={'1'}
-                                                                    style={{width: '100%'}}
-                                                                    size={'small'}
-                                                                >
-                                                                    <h3>{productType.name}</h3>
-                                                                    <ArrowIcon q:slot={'icon'}/>
-                                                                </Button>
-                                                            )
-                                                        })}
-                                                    </HeaderSectionElement>
-                                                )
-                                            })
+                                                            <Button
+                                                                type={'link'}
+                                                                q:slot={'title'}
+                                                                colorIndex={'1'}
+                                                                style={{width: '100%'}}
+
+
+                                                            >
+                                                                <h1>{category.name}</h1>
+                                                                <ArrowIcon q:slot={'icon'}/>
+                                                            </Button>
+                                                            {category.productTypes.map(productType => {
+                                                                return (
+                                                                    <Button
+                                                                        type={'link'}
+                                                                        q:slot={'title'}
+                                                                        colorIndex={'1'}
+                                                                        style={{width: '100%'}}
+                                                                        size={'small'}
+                                                                    >
+                                                                        <h3>{productType.name}</h3>
+                                                                        <ArrowIcon q:slot={'icon'}/>
+                                                                    </Button>
+                                                                )
+                                                            })}
+                                                        </HeaderSectionElement>
+                                                    )
+                                                })
                                             }
                                         </>
                                     ))}

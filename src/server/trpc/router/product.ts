@@ -8,7 +8,7 @@ export const productRouter = t.router({
             z.object({
                 query: z.string().optional()
             }))
-        .query(async ({ctx, input}) => {
+        .query(async () => {
 
             const products = prisma.product.findMany({take: 10})
 
