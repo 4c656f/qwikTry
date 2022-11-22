@@ -6,18 +6,18 @@ import {globalContext} from "../root";
 import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
 import {isServer} from "@builder.io/qwik/build";
-
+import {ProductSevice} from "../client/services/productSevice";
 
 export default component$(() => {
 
 
     const resource = useResource$<Product[] | undefined>(async () => {
         if (isServer) {
-            console.log('serverResource')
-            return undefined
+            const {prisma} = await import('../server/db/client')
+            return prisma.product.findMany()
         }
-        console.log('clientResource')
-        return undefined
+
+        return ProductSevice.getProducts()
     })
 
 
