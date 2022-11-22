@@ -1,4 +1,4 @@
-import { vercelEdgeAdaptor } from '@builder.io/qwik-city/adaptors/vercel-edge/vite';
+import { expressAdaptor } from '@builder.io/qwik-city/adaptors/express/vite';
 import { extendConfig } from '@builder.io/qwik-city/vite';
 import baseConfig from '../../vite.config';
 
@@ -7,12 +7,11 @@ export default extendConfig(baseConfig, () => {
     build: {
       ssr: true,
       rollupOptions: {
-        input: ['src/entry.vercel-edge.tsx', '@qwik-city-plan'],
+        input: ['src/entry.express.tsx', '@qwik-city-plan'],
       },
-      outDir: '.vercel/output/functions/_qwik-city.func',
     },
     plugins: [
-      vercelEdgeAdaptor({
+      expressAdaptor({
         staticGenerate: true,
       }),
     ],

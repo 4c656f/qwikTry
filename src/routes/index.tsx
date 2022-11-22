@@ -3,11 +3,9 @@ import type {DocumentHead} from '@builder.io/qwik-city';
 import {Link} from '@builder.io/qwik-city';
 import type {Product} from '@prisma/client'
 import {globalContext} from "../root";
-import {isServer} from "@builder.io/qwik/build";
-
-import {trpc} from "~/client/trpc";
 import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
+import {isServer} from "@builder.io/qwik/build";
 
 
 export default component$(() => {
@@ -15,13 +13,13 @@ export default component$(() => {
 
     const resource = useResource$<Product[] | undefined>(async () => {
         if (isServer) {
-            const {prisma} = await import('../server/db/client')
             console.log('serverResource')
-            return await prisma.product.findMany()
+            return undefined
         }
-        console.log('userResource')
-        return await trpc.product.getProducts.query({})
+        console.log('clientResource')
+        return undefined
     })
+
 
     const globalStore = useContext(globalContext)
 
@@ -61,6 +59,7 @@ export default component$(() => {
                 )
                 }
             />
+
         </div>
     );
 });

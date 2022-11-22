@@ -2,9 +2,7 @@ import styles from './HeaderSection.scss?inline'
 import {component$, Slot, useStylesScoped$} from "@builder.io/qwik";
 
 
-
 export default component$(() => {
-
 
 
     useStylesScoped$(styles)

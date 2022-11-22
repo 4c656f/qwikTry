@@ -5,7 +5,6 @@ import styles from "./headerSectionElement.scss?inline";
 export default component$(() => {
 
 
-
     useStylesScoped$(styles)
 
     return (

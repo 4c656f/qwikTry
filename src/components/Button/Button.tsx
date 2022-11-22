@@ -42,7 +42,7 @@ export default component$((props: ButtonProps) => {
     return (
         <button
             onClick$={async () => {
-                if(onClick$)await onClick$();
+                if (onClick$) await onClick$();
 
             }}
             class={classes.join(' ')}
