@@ -6,18 +6,17 @@ import {globalContext} from "../root";
 import Button from "../components/Button/Button";
 import ArrowIcon from "../components/icons/Arrow";
 import {isServer} from "@builder.io/qwik/build";
-import {ProductSevice} from "../client/services/productSevice";
 
 export default component$(() => {
 
 
-    const resource = useResource$<Product[] | undefined>(async () => {
+    const resource = useResource$<string | undefined>(async () => {
         if (isServer) {
-            const {prisma} = await import('../server/db/client')
-            return prisma.product.findMany()
+            const {tServer} = await import('~/server/trpc/router')
+            return tServer.product.list('')
         }
-
-        return ProductSevice.getProducts()
+        const {trpc} = await import('../client/trpc')
+        return trpc.product.list.query('')
     })
 
 
@@ -48,14 +47,7 @@ export default component$(() => {
                 onRejected={(eror) => <h1>{eror}</h1>}
                 onPending={() => <h1>loading</h1>}
                 onResolved={(prop) => (
-                    <>{
-                        prop?.map(value => {
-                            return (
-                                <h1>{value.name}</h1>
-                            )
-                        })
-                    }
-                    </>
+                    <h1>{prop}</h1>
                 )
                 }
             />
