@@ -1,8 +1,6 @@
-import * as trpc from "@trpc/server";
-import { prisma } from "../db/client";
+import * as trpc from '@trpc/server';
+import type {PrismaClient} from "@prisma/client";
 
-export const createContext = async () => {
-    return { prisma };
-};
+export const createContext = async () => ({});
 
 export type Context = trpc.inferAsyncReturnType<typeof createContext>;

@@ -1,4 +1,4 @@
-@import "../../_variables";
+@import "../../../variables";
 
 
 .container {
@@ -148,10 +148,12 @@
   pointer-events: none !important;
   cursor: default !important;
 }
+
 .icon {
   display: flex;
   align-items: center;
 }
+
 .icon > svg {
-  @include default_svg();
+  @include default_svg($size: 16px);
 }

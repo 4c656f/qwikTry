@@ -60,6 +60,7 @@ model Product{
 
 model Category{
     id String @id @map("_id") @default(auto()) @db.ObjectId
+    name String
     productTypes   ProductType[]
     image Image[]
 

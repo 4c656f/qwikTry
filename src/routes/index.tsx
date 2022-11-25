@@ -1,72 +1,59 @@
-import {component$, Resource, useClientEffect$, useContext, useResource$, useSignal} from '@builder.io/qwik';
-import type {DocumentHead, RequestHandler} from '@builder.io/qwik-city';
-import {Link, useEndpoint} from '@builder.io/qwik-city';
-import {Product} from '@prisma/client'
+import {component$, Resource, useClientEffect$, useContext, useResource$, useStylesScoped$} from '@builder.io/qwik';
+import type {DocumentHead} from '@builder.io/qwik-city';
+import {Link} from '@builder.io/qwik-city';
 import {globalContext} from "../root";
+import Button from "../components/ui/Button/Button";
+import ArrowIcon from "../components/ui/icons/Arrow";
 import {isServer} from "@builder.io/qwik/build";
+import ProductCard from "../components/productCard/ProductCard";
+import styles from '../styles/pages/index.scss?inline'
 
-import { trpc } from "~/client/trpc";
-import Button from "../components/Button/Button";
-import ArrowIcon from "../components/icons/Arrow";
-
-
-export const onGet: RequestHandler<Product[]> = async ({params}) => {
-    const {prisma} = await import('../server/db/client')
-
-    const products = await prisma.product.findMany()
-
-    return products
-};
 
 export default component$(() => {
 
 
-    const products = useEndpoint<typeof onGet>()
-    const resource = useResource$<Product[]|undefined>(async ()=>{
-        if(isServer){
-            return products.promise
+    const resource = useResource$(async () => {
+        if (isServer) {
+            const {prisma} = await import('~/server/prisma')
+            console.log('productResource')
+            return prisma.product.findMany({
+                include: {
+                    productType: {
+                        include: {
+                            category: true
+                        }
+                    },
+                    image: true
+                },
+            })
         }
-        return await trpc.product.getProducts.query({})
+        const {trpc} = await import('../client/trpc')
+        return trpc.product.list.query('')
     })
+
+    useStylesScoped$(styles)
 
     const globalStore = useContext(globalContext)
 
 
     return (
-        <div>
-            <Link
-                href={'/product'}
-            >
-                gotToProductPage
-            </Link>
-            <h1>state: {globalStore.count}</h1>
-            <Button
-                onClick$={() => {
-                    globalStore.isDark = !globalStore.isDark
-                }}
-                type={'link'}
-            >
-                toggleTheme
-                <ArrowIcon
-                    q:slot={'icon'}
-                />
-            </Button>
+        <div
+            class={'product_container'}
+        >
             <Resource
                 value={resource}
-                onRejected={(eror) => <div>Error</div>}
-                onPending={() => <div>loading</div>}
+                onRejected={(eror) => <h1>{eror}</h1>}
+                onPending={() => <h1>loading</h1>}
                 onResolved={(prop) => (
-                    <>{
-                        prop?.map(value => {
-                            return (
-                                <h1>{value.name}</h1>
-                            )
-                        })
-                    }
+                    <>
+                        {
+                            prop.map(value => <ProductCard product={value}/>)
+                        }
                     </>
                 )
                 }
             />
+
         </div>
     );
 });

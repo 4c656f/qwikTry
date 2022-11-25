@@ -1,10 +1,12 @@
-// src/server/trpc/router/index.ts
-import { t } from "../trpc";
-import { productRouter } from "./product";
+import {PrismaClient} from '@prisma/client';
+import {t} from '../trpc';
+import {prductRouter} from './prductRouter';
 
 export const appRouter = t.router({
-    product: productRouter,
+    product: prductRouter,
 });
 
-// export type definition of API
+
 export type AppRouter = typeof appRouter;
+
+export const tServer = appRouter.createCaller({prisma: new PrismaClient()});

@@ -1,7 +1,7 @@
 import {HTMLAttributes} from "@builder.io/qwik";
 
 
-const ArrowIcon = (props:HTMLAttributes<any>) => (
+const ArrowIcon = (props: HTMLAttributes<any>) => (
     <svg
         viewBox="0 0 24 24"
         fill="none"
