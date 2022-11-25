@@ -45,5 +45,10 @@ export default defineConfig(() => {
         "Cache-Control": "public, max-age=600",
       },
     },
+    resolve:{
+      alias: {
+        ".prisma/client/edge": "./node_modules/.prisma/client/edge"
+      }
+    }
   };
 });
