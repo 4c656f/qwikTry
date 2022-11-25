@@ -1,5 +1,8 @@
 import {component$, useContext} from "@builder.io/qwik";
+import ReactMarkdown from "react-markdown";
 import {globalContext} from "../../root";
+import {qwikify$} from "@builder.io/qwik-react";
+import {FC} from "react";
 
 
 export default component$(() => {
@@ -15,6 +18,7 @@ export default component$(() => {
                 onClick$={() => globalStore.count++}
             >incriment
             </button>
+
         </div>
     )
 })

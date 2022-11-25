@@ -29,10 +29,5 @@ const handler: RequestHandler = async ({ request, response, params }) => {
 	}
 };
 
-export const onGet = handler;
-export const onPost = handler;
-export const onPut = handler;
-export const onDelete = handler;
-export const onPatch = handler;
-export const onHead = handler;
-export const onOptions = handler;
+export const onRequest = handler;
+

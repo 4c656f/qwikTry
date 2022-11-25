@@ -1,53 +1,56 @@
-import {component$, Resource, useContext, useResource$} from '@builder.io/qwik';
+import {component$, Resource, useClientEffect$, useContext, useResource$, useStylesScoped$} from '@builder.io/qwik';
 import type {DocumentHead} from '@builder.io/qwik-city';
 import {Link} from '@builder.io/qwik-city';
-import type {Product} from '@prisma/client'
 import {globalContext} from "../root";
-import Button from "../components/Button/Button";
-import ArrowIcon from "../components/icons/Arrow";
+import Button from "../components/ui/Button/Button";
+import ArrowIcon from "../components/ui/icons/Arrow";
 import {isServer} from "@builder.io/qwik/build";
+import ProductCard from "../components/productCard/ProductCard";
+import styles from '../styles/pages/index.scss?inline'
+
+
 
 export default component$(() => {
 
 
-    const resource = useResource$<string | undefined>(async () => {
+    const resource = useResource$(async () => {
         if (isServer) {
-            const {tServer} = await import('~/server/trpc/router')
-            return tServer.product.list('')
+            const {prisma} = await import('~/server/prisma')
+            console.log('productResource')
+            return prisma.product.findMany({
+                include: {
+                    productType: {
+                        include: {
+                            category: true
+                        }
+                    },
+                    image: true
+                },
+            })
         }
         const {trpc} = await import('../client/trpc')
         return trpc.product.list.query('')
     })
 
+    useStylesScoped$(styles)
 
     const globalStore = useContext(globalContext)
 
 
     return (
-        <div>
-            <Link
-                href={'/product'}
-            >
-                gotToProductPage
-            </Link>
-            <h1>state: {globalStore.count}</h1>
-            <Button
-                onClick$={() => {
-                    globalStore.isDark = !globalStore.isDark
-                }}
-                type={'link'}
-            >
-                toggleTheme
-                <ArrowIcon
-                    q:slot={'icon'}
-                />
-            </Button>
+        <div
+            class={'product_container'}
+        >
             <Resource
                 value={resource}
                 onRejected={(eror) => <h1>{eror}</h1>}
                 onPending={() => <h1>loading</h1>}
                 onResolved={(prop) => (
-                    <h1>{prop}</h1>
+                    <>
+                        {
+                            prop.map(value=> <ProductCard product={value}/>)
+                        }
+                    </>
                 )
                 }
             />

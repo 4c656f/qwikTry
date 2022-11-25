@@ -1,0 +1,64 @@
+@import "../../variables";
+
+.container {
+
+  width: 250px;
+  height: auto;
+  //flex-grow: 0.5;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  grid-gap: 10px;
+  border-radius: $border_radius;
+  background-color: var(--index_1_color);
+  @include small_padding($vertical: 12px)
+}
+
+.image_container {
+  height: 160px;
+  width: 100%;
+}
+
+@keyframes backgroundPulseSceleton {
+  0% {
+    background-color: var(--index_1_color);
+  }
+  50% {
+    background-color: var(--index_2_color);
+  }
+  100% {
+    background-color: var(--index_1_color);
+  }
+}
+
+.sceleton_image {
+  height: 160px;
+  width: 100%;
+  animation-name: backgroundPulseSceleton;
+  border-radius: $border_radius;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.sceleton_property {
+  height: 20px;
+  width: 100%;
+  border-radius: $border-radius;
+  animation-name: backgroundPulseSceleton;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.link {
+  color: var(--index_0_text);
+
+}
+.name{
+  flex-grow: 1;
+}
+.add_btn{
+  width: 100%;
+  justify-content: center;
+}

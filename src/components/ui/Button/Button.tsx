@@ -1,9 +1,9 @@
-import {component$, HTMLAttributes, PropFunction, Slot, useStyles$} from '@builder.io/qwik';
+import {component$, HTMLAttributes, PropFunction, Slot, useStyles$, useStylesScoped$} from '@builder.io/qwik';
 
 import styles from './button.scss?inline';
-import {ButtonType} from "../../../types/IElementType";
-import {IElementsSize} from "../../../types/IElementsSize";
-import {IColorIndex} from "../../../types/IColorIndex";
+import {ButtonType} from "../../../../types/IElementType";
+import {IElementsSize} from "../../../../types/IElementsSize";
+import {IColorIndex} from "../../../../types/IColorIndex";
 
 
 const type = 'button'
@@ -29,7 +29,7 @@ export default component$((props: ButtonProps) => {
     } = props
 
 
-    useStyles$(styles);
+    useStylesScoped$(styles);
 
     const classes = [
         className ? className : '',
