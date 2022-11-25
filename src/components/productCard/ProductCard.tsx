@@ -17,7 +17,7 @@ type ProductCardProps = {
             }
         }
     }>;
-    handleCartMutation?: (objID: string)=>void
+    handleCartMutation?: (objID: string) => void
 
 }
 
@@ -37,7 +37,7 @@ export default component$((props: ProductCardProps) => {
 
 
     useStylesScoped$(styles)
-    
+
     return (
         <div
             className={'container'}
@@ -54,15 +54,15 @@ export default component$((props: ProductCardProps) => {
                         <div
                             className={'image_container'}
                         >
-                        <CustomImage
+                            <CustomImage
 
-                            src={`/productpics/${value.src}`}
-                            width={224}
-                            height={160}
-                            alt={`${name} picture`}
+                                src={`/productpics/${value.src}`}
+                                width={224}
+                                height={160}
+                                alt={`${name} picture`}
 
 
-                        />
+                            />
                         </div>
                     </Link>
                 )

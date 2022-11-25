@@ -25,7 +25,7 @@ export default component$(() => {
         if (isServer) {
             const {prisma} = await import('~/server/prisma')
             return prisma.category.findMany({
-                include:{
+                include: {
                     productTypes: true
                 }
             })

@@ -9,15 +9,11 @@ import ArrowIcon from "../ui/icons/Arrow";
 import Header from "../ui/header/header";
 import {globalContext} from "../../root";
 
-type ServerHeaderProps = {
+type ServerHeaderProps = {}
 
-}
+export default component$((props: ServerHeaderProps) => {
 
-export default component$((props:ServerHeaderProps) => {
-
-    const {
-
-    } = props
+    const {} = props
 
 
     const categoriesResource = useResource$(async () => {
@@ -25,7 +21,7 @@ export default component$((props:ServerHeaderProps) => {
             const {prisma} = await import('~/server/prisma')
             console.log('serverHeaderResource')
             return prisma.category.findMany({
-                include:{
+                include: {
                     productTypes: true
                 }
             })

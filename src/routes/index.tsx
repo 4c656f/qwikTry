@@ -9,7 +9,6 @@ import ProductCard from "../components/productCard/ProductCard";
 import styles from '../styles/pages/index.scss?inline'
 
 
-
 export default component$(() => {
 
 
@@ -48,7 +47,7 @@ export default component$(() => {
                 onResolved={(prop) => (
                     <>
                         {
-                            prop.map(value=> <ProductCard product={value}/>)
+                            prop.map(value => <ProductCard product={value}/>)
                         }
                     </>
                 )

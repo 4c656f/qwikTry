@@ -21,13 +21,13 @@ export default component$((props: CustomImageProps) => {
 
     } = props
 
-    const url = useSignal<string|undefined>()
+    const url = useSignal<string | undefined>()
 
     useStylesScoped$(styles)
 
-    useClientEffect$(({track})=>{
-        track(()=>src)
-        if(!src)return
+    useClientEffect$(({track}) => {
+        track(() => src)
+        if (!src) return
         const img = new Image()
         img.src = src
         img.onload = () => url.value = src
@@ -58,4 +58,5 @@ export default component$((props: CustomImageProps) => {
 
 
         </div>
-    )})
+    )
+})

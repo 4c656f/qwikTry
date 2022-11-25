@@ -2,16 +2,12 @@ import React, {Children, FC, ReactNode} from 'react';
 import styles from './NestedLink.scss?inline'
 import {component$, Slot, useStylesScoped$} from "@builder.io/qwik";
 
-type NestedLinkCustomProps = {
-
-}
+type NestedLinkCustomProps = {}
 type NestedLinkProps = NestedLinkCustomProps
 
-export default component$ ((props: NestedLinkProps) => {
+export default component$((props: NestedLinkProps) => {
 
-    const {
-
-    } = props
+    const {} = props
 
     useStylesScoped$(styles)
     return (
@@ -20,5 +16,6 @@ export default component$ ((props: NestedLinkProps) => {
         >
             <Slot/>
         </div>
-    );})
+    );
+})
 

@@ -159,14 +159,17 @@ span {
   @include default_h4();
 
 }
+
 a {
   color: var(--index_0_text);
   @include default_h4();
 }
-code{
+
+code {
   @include default_h4();
 }
-.highlighted{
+
+.highlighted {
   background-color: var(--index_2_color);
   border-radius: $border_radius;
   padding: 5px 5px 5px 5px;
