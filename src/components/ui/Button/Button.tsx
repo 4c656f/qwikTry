@@ -1,4 +1,4 @@
-import {component$, HTMLAttributes, PropFunction, Slot, useStyles$, useStylesScoped$} from '@builder.io/qwik';
+import {component$, HTMLAttributes, PropFunction, Slot, useStylesScoped$} from '@builder.io/qwik';
 
 import styles from './button.scss?inline';
 import {ButtonType} from "../../../../types/IElementType";

@@ -47,8 +47,11 @@ export default defineConfig(() => {
     },
     resolve:{
       alias: {
-        ".prisma/client/edge": "./node_modules/.prisma/client/edge"
+        ".prisma/client/edge": "./node_modules/.prisma/client/edge.js",
+        ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js"
       }
-    }
+    },
+    envDir: "./",
+    envPrefix: "VITE_"
   };
 });

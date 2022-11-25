@@ -9,9 +9,9 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.server": "vite build -c adaptors/express/vite.config.ts",
+    "build.server": "vite build -c adaptors/vercel-edge/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
-    "deploy": "node server/entry.express",
+    "deploy": "vercel deploy",
     "dev": "vite --mode ssr",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "fmt": "prettier --write .",
@@ -22,8 +22,8 @@
     "qwik": "qwik"
   },
   "devDependencies": {
+    "@builder.io/qwik": "^0.14.0",
     "@builder.io/qwik-city": "^0.0.125",
-    "@prisma/client": "^4.6.1",
     "@trpc/client": "^10.1.0",
     "@trpc/server": "^10.1.0",
     "@types/compression": "^1.7.2",
@@ -50,7 +50,7 @@
     "zod": "^3.19.1"
   },
   "dependencies": {
-    "@builder.io/qwik": "^0.14.0",
+    "@prisma/client": "^4.6.1",
     "rehype-pretty-code": "^0.5.0",
     "shiki": "^0.11.1"
   }

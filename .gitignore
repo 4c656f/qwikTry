@@ -14,7 +14,7 @@ node_modules
 .vscode
 .rollup.cache
 tsconfig.tsbuildinfo
-
+.env
 # Logs
 logs
 *.log

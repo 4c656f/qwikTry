@@ -1,9 +1,5 @@
-import {component$, Resource, useClientEffect$, useContext, useResource$, useStylesScoped$} from '@builder.io/qwik';
+import {component$, Resource, useResource$, useStylesScoped$} from '@builder.io/qwik';
 import type {DocumentHead} from '@builder.io/qwik-city';
-import {Link} from '@builder.io/qwik-city';
-import {globalContext} from "../root";
-import Button from "../components/ui/Button/Button";
-import ArrowIcon from "../components/ui/icons/Arrow";
 import {isServer} from "@builder.io/qwik/build";
 import ProductCard from "../components/productCard/ProductCard";
 import styles from '../styles/pages/index.scss?inline'
@@ -33,7 +29,6 @@ export default component$(() => {
 
     useStylesScoped$(styles)
 
-    const globalStore = useContext(globalContext)
 
 
     return (
