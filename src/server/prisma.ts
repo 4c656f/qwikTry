@@ -8,7 +8,7 @@ if (typeof window === 'undefined') {
         prisma = new PrismaClient({
             datasources: {
                 db: {
-                    url: process.env['VITE_DATABASE_URL']
+                    url: "prisma://aws-us-east-1.prisma-data.com/?api_key=SDjow6WYiLL1qfy8wBXpSYuXcDGQDwcH8-JrbBq71Ez4lWXtq4zpUFwFluGff3PH"
                 }
             }
         });
@@ -17,7 +17,7 @@ if (typeof window === 'undefined') {
             global.prisma = new PrismaClient({
                 datasources: {
                     db: {
-                        url: process.env['VITE_DATABASE_URL']
+                        url: "prisma://aws-us-east-1.prisma-data.com/?api_key=SDjow6WYiLL1qfy8wBXpSYuXcDGQDwcH8-JrbBq71Ez4lWXtq4zpUFwFluGff3PH"
                     }
                 }
             });

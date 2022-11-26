@@ -29,9 +29,9 @@ export default defineConfig(() => {
     plugins: [
       qwikCity({
         mdxPlugins: {
-          remarkGfm: false,
+          remarkGfm: true,
           rehypeSyntaxHighlight: true,
-          rehypeAutolinkHeadings: false,
+          rehypeAutolinkHeadings: true,
         },
         mdx: {
           rehypePlugins: [[rehypePrettyCode, options]],
@@ -51,7 +51,7 @@ export default defineConfig(() => {
         ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js"
       }
     },
-    envDir: "./",
+    envDir: ".",
     envPrefix: "VITE_"
   };
 });

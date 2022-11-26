@@ -1,6 +1,6 @@
 # Hello World Title
 
-```js {1,4}
+```js
 const buildDir = join(distDir, 'build');
 
 
